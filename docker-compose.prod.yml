@@ -1,0 +1,33 @@
+version: "3.9"
+
+services:
+  backend:
+    image: ev-backend:latest
+    container_name: ev_backend
+    env_file: .env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    restart: always
+
+  frontend:
+    image: ev-frontend:latest
+    container_name: ev_frontend
+    ports:
+      - "80:80"
+    restart: always
+
+  db:
+    image: postgres:15
+    container_name: ev_db
+    environment:
+      POSTGRES_USER: ev_user
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ev_db
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    restart: always
+
+volumes:
+  db_data:

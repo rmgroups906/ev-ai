@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ev-secure-app-service
+spec:
+  type: ClusterIP
+  selector:
+    app: ev-secure-app
+  ports:
+    - port: 80
+      targetPort: 8000
